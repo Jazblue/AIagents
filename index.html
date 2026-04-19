@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Jays AI Agents | Web forms, knowledge bases and AI agents for real businesses</title>
+  <meta name="description" content="Jays AI Agents builds practical web forms, knowledge bases, AI agents, and OpenClaw setups for businesses that want useful automation without the tech headache." />
+  <style>
+    :root {
+      --bg: #0a1020;
+      --bg2: #111b36;
+      --panel: rgba(11, 18, 38, 0.82);
+      --panel-strong: rgba(16, 24, 47, 0.96);
+      --line: rgba(154, 168, 201, 0.18);
+      --text: #edf2ff;
+      --muted: #aab5d7;
+      --brand: #7c9cff;
+      --brand-2: #58d5bf;
+      --ok: #79e29e;
+      --shadow: 0 24px 70px rgba(0, 0, 0, 0.35);
+      --radius-lg: 22px;
+      --max: 1180px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: Inter, Arial, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(124,156,255,0.18), transparent 25%),
+        radial-gradient(circle at top right, rgba(88,213,191,0.14), transparent 22%),
+        linear-gradient(180deg, var(--bg) 0%, #0d152b 45%, var(--bg2) 100%);
+    }
+
+    a { color: inherit; text-decoration: none; }
+    .wrap { width: min(var(--max), calc(100% - 32px)); margin: 0 auto; }
+    .nav {
+      position: sticky; top: 0; z-index: 20; backdrop-filter: blur(14px);
+      background: rgba(8, 12, 24, 0.72); border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .nav-inner {
+      width: min(var(--max), calc(100% - 32px)); margin: 0 auto; display: flex;
+      align-items: center; justify-content: space-between; gap: 18px; padding: 14px 0;
+    }
+    .brand { display: flex; align-items: center; gap: 10px; font-weight: 800; letter-spacing: -0.02em; }
+    .brand-badge {
+      width: 38px; height: 38px; border-radius: 12px; display: grid; place-items: center;
+      background: linear-gradient(135deg, var(--brand), var(--brand-2)); color: white;
+      box-shadow: 0 14px 26px rgba(88, 213, 191, 0.2);
+    }
+    .nav-links { display: flex; align-items: center; gap: 18px; color: var(--muted); font-size: 0.96rem; }
+    .nav-links a:hover { color: var(--text); }
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px; border: 1px solid transparent;
+      border-radius: 999px; padding: 13px 18px; font: inherit; font-weight: 800; cursor: pointer;
+    }
+    .btn-primary { background: linear-gradient(135deg, var(--brand), #4d73ff); color: white; box-shadow: 0 16px 28px rgba(77, 115, 255, 0.24); }
+    .btn-secondary { background: rgba(255,255,255,0.03); border-color: var(--line); color: var(--text); }
+    .hero { padding: 52px 0 28px; }
+    .hero-card {
+      background: linear-gradient(135deg, rgba(124,156,255,0.12), rgba(88,213,191,0.07));
+      border: 1px solid var(--line); border-radius: 34px; box-shadow: var(--shadow); padding: 34px;
+    }
+    .eyebrow {
+      display: inline-flex; align-items: center; gap: 8px; padding: 8px 12px; border-radius: 999px;
+      border: 1px solid rgba(124,156,255,0.26); background: rgba(124,156,255,0.08); color: #dce6ff;
+      font-size: 0.84rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.03em; margin-bottom: 16px;
+    }
+    .hero-grid { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 24px; align-items: center; }
+    h1 { margin: 0 0 14px; font-size: clamp(2.4rem, 6vw, 4.8rem); line-height: 0.95; letter-spacing: -0.045em; max-width: 760px; }
+    .hero-copy { margin: 0 0 20px; color: var(--muted); font-size: 1.08rem; line-height: 1.72; max-width: 760px; }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 18px; }
+    .hero-points { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 18px; }
+    .mini { border: 1px solid var(--line); background: rgba(9, 14, 31, 0.52); border-radius: 18px; padding: 14px; }
+    .mini .kicker { color: var(--muted); font-size: 0.8rem; margin-bottom: 6px; }
+    .mini .value { font-size: 1.05rem; font-weight: 800; letter-spacing: -0.02em; }
+    .hero-panel { border: 1px solid var(--line); background: var(--panel-strong); border-radius: 24px; padding: 22px; }
+    .hero-panel h2 { margin: 0 0 12px; font-size: 1.2rem; }
+    .checklist { display: grid; gap: 10px; margin: 0; padding: 0; list-style: none; }
+    .checklist li { display: flex; gap: 10px; align-items: flex-start; line-height: 1.6; }
+    .dot {
+      width: 24px; height: 24px; flex: 0 0 24px; border-radius: 50%; display: grid; place-items: center;
+      background: rgba(121, 226, 158, 0.12); color: var(--ok); font-size: 0.9rem; margin-top: 1px;
+    }
+    section { padding: 26px 0; }
+    .section-head { max-width: 760px; margin-bottom: 18px; }
+    .section-head h2 { margin: 0 0 10px; font-size: clamp(1.8rem, 3vw, 2.6rem); letter-spacing: -0.03em; }
+    .section-head p { margin: 0; color: var(--muted); line-height: 1.7; }
+    .grid-3, .grid-2 { display: grid; gap: 16px; }
+    .grid-3 { grid-template-columns: repeat(3, 1fr); }
+    .grid-2 { grid-template-columns: repeat(2, 1fr); }
+    .card { border: 1px solid var(--line); background: var(--panel); border-radius: var(--radius-lg); box-shadow: var(--shadow); padding: 22px; }
+    .card h3 { margin: 0 0 10px; font-size: 1.15rem; letter-spacing: -0.02em; }
+    .card p, .card li { line-height: 1.7; }
+    .problem { border-left: 4px solid #ff7b8b; }
+    .outcome { border-left: 4px solid var(--brand-2); }
+    .process-step { position: relative; padding-top: 46px; }
+    .step-num {
+      position: absolute; top: 18px; left: 22px; width: 34px; height: 34px; border-radius: 50%; display: grid; place-items: center;
+      background: rgba(124,156,255,0.14); color: #dce6ff; font-weight: 800;
+    }
+    .pricing { display: grid; grid-template-columns: 1fr 1.1fr; gap: 18px; align-items: start; }
+    .price-box {
+      border: 1px solid var(--line); background: linear-gradient(180deg, rgba(124,156,255,0.12), rgba(15,22,42,0.92));
+      border-radius: 24px; padding: 24px; box-shadow: var(--shadow);
+    }
+    .price { font-size: 3rem; font-weight: 900; letter-spacing: -0.05em; margin: 8px 0 6px; }
+    .fine, .muted { color: var(--muted); }
+    .faq details { border: 1px solid var(--line); background: rgba(11, 18, 38, 0.72); border-radius: 18px; padding: 16px 18px; }
+    .faq details + details { margin-top: 12px; }
+    .faq summary { cursor: pointer; font-weight: 800; list-style: none; }
+    .faq summary::-webkit-details-marker { display: none; }
+    .faq details p { margin: 12px 0 0; color: var(--muted); line-height: 1.7; }
+    .cta { padding-bottom: 60px; }
+    .cta-box {
+      border: 1px solid var(--line); background: linear-gradient(135deg, rgba(124,156,255,0.14), rgba(88,213,191,0.08));
+      border-radius: 30px; padding: 28px; box-shadow: var(--shadow); display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 18px; align-items: center;
+    }
+    .contact-card { border: 1px solid var(--line); background: rgba(8, 13, 28, 0.6); border-radius: 22px; padding: 20px; }
+    footer { border-top: 1px solid rgba(255,255,255,0.06); color: var(--muted); padding: 22px 0 40px; font-size: 0.94rem; }
+
+    @media (max-width: 980px) {
+      .hero-grid, .grid-3, .grid-2, .pricing, .cta-box { grid-template-columns: 1fr; }
+      .hero-points { grid-template-columns: 1fr; }
+      .nav-inner { flex-wrap: wrap; }
+      .nav-links { width: 100%; flex-wrap: wrap; justify-content: flex-start; }
+    }
+
+    @media (max-width: 640px) {
+      .hero-card, .card, .price-box, .cta-box, .hero-panel { padding: 20px; }
+      h1 { font-size: 2.4rem; }
+      .btn { width: 100%; }
+      .hero-actions { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="#top" class="brand">
+        <span class="brand-badge">JA</span>
+        <span>Jays AI Agents</span>
+      </a>
+      <div class="nav-links">
+        <a href="#problems">Problems</a>
+        <a href="#services">Services</a>
+        <a href="#process">How it works</a>
+        <a href="#pricing">Pricing</a>
+        <a href="#faq">FAQ</a>
+        <a href="#contact" class="btn btn-primary">Get a quote</a>
+      </div>
+    </div>
+  </nav>
+
+  <main id="top">
+    <section class="hero">
+      <div class="wrap">
+        <div class="hero-card">
+          <div class="hero-grid">
+            <div>
+              <div class="eyebrow">Practical AI tools for real businesses</div>
+              <h1>Web forms, knowledge bases, and AI agents that actually save time.</h1>
+              <p class="hero-copy">Jays AI Agents helps small businesses add useful AI tools without the usual tech headache. From custom web forms and internal knowledge bases to AI agents and OpenClaw setup, the goal is simple: save time, reduce admin, and make the business run smoother.</p>
+              <div class="hero-actions">
+                <a href="#contact" class="btn btn-primary">Get a quote</a>
+                <a href="#services" class="btn btn-secondary">See services</a>
+              </div>
+              <div class="hero-points">
+                <div class="mini"><div class="kicker">Builds</div><div class="value">Web forms and AI tools</div></div>
+                <div class="mini"><div class="kicker">Approach</div><div class="value">Practical, simple, helpful</div></div>
+                <div class="mini"><div class="kicker">Best for</div><div class="value">Small businesses needing useful automation</div></div>
+              </div>
+            </div>
+            <aside class="hero-panel">
+              <h2>What Jays AI Agents can help with</h2>
+              <ul class="checklist">
+                <li><span class="dot">✓</span><span>Custom web forms for websites, enquiries, bookings, or lead capture.</span></li>
+                <li><span class="dot">✓</span><span>Knowledge bases that make company information easier to organise and use.</span></li>
+                <li><span class="dot">✓</span><span>AI agents that help automate repetitive business tasks.</span></li>
+                <li><span class="dot">✓</span><span>OpenClaw setup on your computer, so you can run practical AI tools locally.</span></li>
+              </ul>
+            </aside>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="problems">
+      <div class="wrap">
+        <div class="section-head">
+          <h2>Problems this helps solve</h2>
+          <p>A lot of small businesses know AI could help, but do not want complexity, hype, or expensive custom systems. The aim here is to build useful tools that reduce admin, improve responses, and make information easier to use.</p>
+        </div>
+        <div class="grid-3">
+          <article class="card problem"><h3>Too much admin</h3><p>If too much time is spent chasing enquiries, replying manually, or repeating the same tasks, simple automation can take pressure off fast.</p></article>
+          <article class="card problem"><h3>Messy information</h3><p>When important business information is scattered across notes, messages, and documents, knowledge bases can make it much easier to find and use what matters.</p></article>
+          <article class="card problem"><h3>No practical AI setup</h3><p>A lot of business owners want AI help but do not know where to start. OpenClaw setup and tailored tools make it easier to get something useful running properly.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section id="services">
+      <div class="wrap">
+        <div class="section-head">
+          <h2>Services</h2>
+          <p>Everything here is aimed at practical business use. No bloated software projects, no vague AI waffle, just useful systems that can save time and help the business run better.</p>
+        </div>
+        <div class="grid-3">
+          <article class="card outcome"><h3>Custom web forms</h3><p>Forms for websites, enquiries, bookings, lead capture, and customer information, built to be clear, simple, and useful.</p></article>
+          <article class="card outcome"><h3>Knowledge bases</h3><p>Organised information systems that help businesses store, search, and use their content, processes, and answers more effectively.</p></article>
+          <article class="card outcome"><h3>AI agents and OpenClaw setup</h3><p>Setup and support for practical AI agents, including OpenClaw installation on your computer so you can start using useful automation properly.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap">
+        <div class="grid-2">
+          <article class="card">
+            <h3>What you get</h3>
+            <ul>
+              <li>Practical AI tools built around what the business actually needs.</li>
+              <li>Simple systems that save time and reduce repetitive work.</li>
+              <li>Clearer ways to capture enquiries and organise information.</li>
+              <li>Help setting up OpenClaw and related AI workflows.</li>
+              <li>A straightforward, non-technical approach where possible.</li>
+            </ul>
+          </article>
+          <article class="card">
+            <h3>What you do not get</h3>
+            <ul>
+              <li>Bloated tech projects with no practical use.</li>
+              <li>Confusing AI jargon for the sake of sounding clever.</li>
+              <li>One-size-fits-all automation that does not fit the business.</li>
+              <li>Pressure into expensive systems you do not need.</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="process">
+      <div class="wrap">
+        <div class="section-head">
+          <h2>How it works</h2>
+          <p>Simple on purpose. The goal is to understand what would actually help, then build the right thing without making it more complicated than it needs to be.</p>
+        </div>
+        <div class="grid-3">
+          <article class="card process-step"><div class="step-num">1</div><h3>Quick discovery</h3><p>You explain what the business does, where the admin or inefficiency is, and what sort of AI or website support would actually be useful.</p></article>
+          <article class="card process-step"><div class="step-num">2</div><h3>Right solution</h3><p>You get a clear recommendation on the best fit, whether that is a web form, a knowledge base, an AI agent, or OpenClaw setup.</p></article>
+          <article class="card process-step"><div class="step-num">3</div><h3>Build and setup</h3><p>The tool or setup is built and configured so it is ready to use, with a focus on practical value rather than unnecessary complexity.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section id="pricing">
+      <div class="wrap">
+        <div class="section-head">
+          <h2>Simple setup, low overhead</h2>
+          <p>This site is intentionally lightweight, so it can be hosted cheaply or free. That keeps things simple and avoids burning credits on unnecessary infrastructure.</p>
+        </div>
+        <div class="pricing">
+          <div class="price-box">
+            <div class="muted">Flexible pricing</div>
+            <div class="price">Custom</div>
+            <h3>Quote based</h3>
+            <p>Each job depends on what is needed, from a simple web form to a more involved AI agent or OpenClaw setup.</p>
+            <p class="fine">Hard pricing is left off for now so you can quote based on the work and keep the site flexible.</p>
+          </div>
+          <div class="card">
+            <h3>Good fit if</h3>
+            <ul>
+              <li>You run a small business and want practical AI help.</li>
+              <li>You need website forms, smarter information handling, or task automation.</li>
+              <li>You want help getting OpenClaw working on your own computer.</li>
+              <li>You prefer useful solutions over bloated software projects.</li>
+            </ul>
+            <h3>Not ideal if</h3>
+            <ul>
+              <li>You want a huge enterprise software build.</li>
+              <li>You are after hype rather than practical results.</li>
+              <li>You need a massive agency team and a long procurement process.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="faq">
+      <div class="wrap">
+        <div class="section-head">
+          <h2>FAQ</h2>
+          <p>Short answers to the obvious questions.</p>
+        </div>
+        <div class="faq">
+          <details><summary>Do I need to know loads about AI first?</summary><p>No. This is aimed at business owners who want useful AI tools without needing to become technical themselves.</p></details>
+          <details><summary>Can you set up OpenClaw on my computer?</summary><p>Yes. OpenClaw setup is one of the services offered, so you can get a practical AI assistant running locally on your machine.</p></details>
+          <details><summary>Can this site be hosted cheaply?</summary><p>Yes. This website is a lightweight static page, which means it can be hosted very cheaply or free using services like GitHub Pages.</p></details>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="cta">
+      <div class="wrap">
+        <div class="cta-box">
+          <div>
+            <div class="eyebrow">Next step</div>
+            <h2>Get a quote</h2>
+            <p class="hero-copy">I help small businesses add practical AI tools without the usual tech headache. If you want web forms, a knowledge base, an AI agent, or OpenClaw setup, send a quick message and we can discuss what would actually help.</p>
+            <div class="hero-actions">
+              <a class="btn btn-primary" href="https://wa.me/447306045705?text=Hi%20Jason%2C%20I%27m%20interested%20in%20Jays%20AI%20Agents" target="_blank" rel="noopener">WhatsApp Jason</a>
+              <a class="btn btn-secondary" href="tel:07306045705">Call now</a>
+            </div>
+            <p class="fine">Prefer email instead? Use <strong>jasonmariakieran@gmail.com</strong>.</p>
+          </div>
+          <aside class="contact-card">
+            <h3>Contact details</h3>
+            <p><strong>Email:</strong> jasonmariakieran@gmail.com</p>
+            <p><strong>Phone:</strong> 07306045705</p>
+            <p><strong>Business:</strong> Jays AI Agents</p>
+            <p class="fine">Lightweight website, practical offer, easy to publish.</p>
+          </aside>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">© Jays AI Agents. Built as a lightweight static website for simple, low-cost publishing.</div>
+  </footer>
+</body>
+</html>
